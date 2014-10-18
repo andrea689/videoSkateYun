@@ -70,6 +70,22 @@ void process(YunClient client) {
     Stop = 0;
     Direction=0;
   }
+  else if(command.equals("scatta")){
+    Stop = 0;
+    Direction=0;
+    Process p; 
+    p.begin("cd");      
+    p.addParameter("\"/mnt/sda1/Prova\""); 
+    p.run();    
+    p.begin("gphoto2");      
+    p.addParameter("--capture-image-and-download"); 
+    p.run();
+    while (p.available()>0) {
+      char c = p.read();
+      Serial.print(c);
+    }
+    Serial.flush();
+  }
 }
 
 void stepper(){
